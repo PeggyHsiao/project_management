@@ -1,0 +1,9 @@
+{
+    "login_page": {
+        "login": "Log in",
+        "logout": "Log out",
+        "username": "Username",
+        "password": "Password",
+        "rememberMe": "Remember Me"   
+    }
+}

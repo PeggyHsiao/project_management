@@ -1,0 +1,9 @@
+{
+    "login_page": {
+        "login": "登入",
+        "logout": "登出",
+        "username": "帐号",
+        "password": "密码",
+        "rememberMe": "记住我"   
+    }
+}

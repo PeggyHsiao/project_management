@@ -1,0 +1,9 @@
+{
+    "login_page": {
+        "login": "ログインする",
+        "logout": "ログアウト",
+        "username": "ユーザー名",
+        "password": "パスワード",
+        "rememberMe": "私を覚えてますか"     
+    }
+}
