@@ -22,7 +22,7 @@ const baseData = () => ({ csrfToken: getCookieByName('csrfToken') });
 const baseConfig = {
   baseURL: `${webAPIRoot}/api`,
   withCredentials: true,
-  timeout: 24 * 60 * 60 * 1000,
+  timeout: 1 * 60 * 60 * 1000, // 1hr
 };
 
 function getRequest(url, config = {}) {

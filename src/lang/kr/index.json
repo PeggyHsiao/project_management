@@ -1,9 +1,22 @@
 {
+    "platform": {
+        "projectManagement": "프로젝트 관리",
+        "realtimeMonitoring": "실적 이어지는 것",
+        "draw": "그리다",
+        "saasComposer": "SaaS Composer",
+        "wisePaasDashboard": "WISE-PaaS Dashboard"
+    },
+    "dialog": {
+        "ok": "좋아요",
+        "cancel": "취소",
+        "delete": "삭제"
+    },
     "login_page": {
         "login": "로그인",
         "logout": "로그 아웃",
         "username": "사용자 이름",
         "password": "비밀번호",
-        "rememberMe": "날 기억해"     
+        "rememberMe": "날 기억해",
+        "platform": "플랫폼"     
     }
 }

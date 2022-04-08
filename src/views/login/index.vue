@@ -3,6 +3,12 @@
     <div class="form">
       <div class="logo-img" />
 
+      <v-select
+        :items="platformList"
+        :label="$t('login_page.platform')"
+        outlined
+      />
+
       <ValidationObserver
         ref="observer"
       >
@@ -16,6 +22,7 @@
             :label="$t('login_page.username')"
             outlined
             :error-messages="errors[0]"
+            @keydown.enter.prevent="onSubmit"
           />
         </ValidationProvider>
       </ValidationObserver>
@@ -27,6 +34,7 @@
         :label="$t('login_page.password')"
         outlined
         @click:append="show = !show"
+        @keydown.enter.prevent="onSubmit"
       />
       <v-checkbox
         v-model="isRememberMe"
@@ -44,15 +52,6 @@
       </v-btn>
     </div>
 
-    <v-alert
-      v-if="test"
-      v-animate-css="'headShake'"
-      color="red"
-      type="error"
-    >
-      {{ "登入失敗" }}
-    </v-alert>
-
     <v-footer
       class="footer"
       padless
@@ -64,29 +63,90 @@
         Copyright &copy; 2010-{{ new Date().getFullYear() }} Advantech Co., Ltd. All Right Reserved.
       </v-col>
     </v-footer>
+
+    <NotifyDialog v-if="dialogShow" />
   </div>
 </template>
 
 <script>
+import { localize } from 'vee-validate';
 import { login } from '@/api/login';
+
+import NotifyDialog from '@/components/dialog/notify';
 
 export default {
   name: 'PageLogin',
-  data: () => ({
-    isRememberMe: false,
-    username: '',
-    password: '',
-    show: false,
-    test: false,
-  }),
-  methods: {
-    onSubmit() {
-      login({ username: this.username, password: this.password }).then((res) => {
-        if (res.data.error === 0) {
-          this.$router.push({ name: 'projectlist' });
-        } else {
-          this.test = true;
+  components: {
+    NotifyDialog,
+  },
+  data() {
+    return {
+      isRememberMe: false,
+      username: '',
+      password: '',
+      show: false,
+      platformList: [],
+      dialogShow: false,
+    };
+  },
+  watch: {
+    $versionData: {
+      handler(val) {
+        if (val) {
+          this.setLanguage(val.serverLanguage);
+          this.getPlatformList(val);
         }
+      },
+      immediate: true,
+    },
+  },
+  created() {
+    if (localStorage.wax_rememberMe) {
+      this.username = localStorage.wax_account;
+      this.isRememberMe = localStorage.wax_rememberMe;
+    }
+  },
+  methods: {
+    setLanguage(lang) {
+      this.$i18n.locale = lang;
+      localize(lang);
+    },
+    getPlatformList(obj) {
+      const list = [
+        { text: this.$t('platform.projectManagement'), value: 'Project Management' },
+        { text: this.$t('platform.realtimeMonitoring'), value: 'Realtime Monitoring' },
+        { text: this.$t('platform.draw'), value: 'Draw' },
+      ];
+
+      if (obj.saasInstalled) list.push({ text: this.$t('platform.saasComposer'), value: 'SaaS Composer' });
+      if (obj.grafanaInstalled) list.push({ text: this.$t('platform.wisePaasDashboard'), value: 'WISE-PaaS Dashboard' });
+
+      this.platformList = list;
+    },
+    saveLocalStorage() {
+      if (this.isRememberMe) {
+        localStorage.wax_account = this.account;
+        localStorage.wax_rememberMe = true;
+      } else {
+        localStorage.wax_account = '';
+        localStorage.wax_rememberMe = false;
+      }
+    },
+    onSubmit() {
+      this.$refs.observer.validate().then((result) => {
+        if (!result) return;
+
+        if (this.password === '') this.dialogShow = true;
+
+        this.saveLocalStorage();
+
+        login({ username: this.username, password: this.password }).then((res) => {
+          if (res.data.error === 0) {
+            this.$router.push({ name: 'projectlist' });
+          } else {
+          // notify
+          }
+        });
       });
     },
   },
@@ -103,7 +163,7 @@ export default {
 
   .form {
     width: 400px;
-    height: 500px;
+    height: 540px;
     padding: 30px 20px;
     border-radius: 6px;
     border: 1px solid rgba(0,0,0,.3);

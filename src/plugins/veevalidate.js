@@ -29,5 +29,3 @@ localize('en');
 
 // Verify trigger timing
 setInteractionMode('eager');
-
-export default { ValidationObserver, ValidationProvider };

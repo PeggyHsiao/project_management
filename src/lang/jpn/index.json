@@ -1,9 +1,22 @@
 {
+    "platform": {
+        "projectManagement": "プロジェクト管理",
+        "realtimeMonitoring": "リアルタイムモニタリング",
+        "draw": "描く",
+        "saasComposer": "SaaS Composer",
+        "wisePaasDashboard": "WISE-PaaS Dashboard"
+    },
+    "dialog": {
+        "ok": "わかった",
+        "cancel": "キャンセル",
+        "delete": "消去"
+    },
     "login_page": {
         "login": "ログインする",
         "logout": "ログアウト",
         "username": "ユーザー名",
         "password": "パスワード",
-        "rememberMe": "私を覚えてますか"     
+        "rememberMe": "私を覚えてますか",
+        "platform": "プラットホーム"     
     }
 }

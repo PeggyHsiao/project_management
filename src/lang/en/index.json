@@ -1,9 +1,22 @@
 {
+    "platform": {
+        "projectManagement": "Project Management",
+        "realtimeMonitoring": "Realtime Monitoring",
+        "draw": "Draw",
+        "saasComposer": "SaaS Composer",
+        "wisePaasDashboard": "WISE-PaaS Dashboard"
+    },
+    "dialog": {
+        "ok": "Ok",
+        "cancel": "Cancel",
+        "delete": "Delete"
+    },
     "login_page": {
         "login": "Log in",
         "logout": "Log out",
         "username": "Username",
         "password": "Password",
-        "rememberMe": "Remember Me"   
+        "rememberMe": "Remember Me",
+        "platform": "Platform"   
     }
 }

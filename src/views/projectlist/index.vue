@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <p v-animate-css="'headShake'">
     123
   </p>
 </template>

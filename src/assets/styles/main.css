@@ -1,0 +1,4 @@
+/* v-select */
+.v-list .v-list-item--active {
+    font-weight: bold;
+}
